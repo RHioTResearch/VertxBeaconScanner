@@ -12,7 +12,7 @@
   <packaging>jar</packaging>
 
   <properties>
-    <vertx.version>3.1.0-SNAPSHOT</vertx.version>
+    <vertx.version>3.0.0</vertx.version>
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.source>1.8</maven.compiler.source>
   </properties>
