@@ -35,7 +35,7 @@ public class ScannerMain {
         } catch (SocketException e) {
             log.warn("Failed to read host address info", e);
         }
-        log.info("Parsed command line args");
+        log.infof("Parsed command line args, %s", cmdArgs);
 
         // Remove any existing stop marker file
         HCIDumpParser.removeStopMarker();

@@ -21,6 +21,7 @@ public class ScannerVerticle extends AbstractVerticle {
     private static Logger log = Logger.getLogger(ScannerVerticle.class);
     private ParseCommand cmdArgs;
     private HCIDumpParser parser;
+    private Thread parserThread;
 
     public ScannerVerticle(ParseCommand cmdArgs) {
         this.cmdArgs = cmdArgs;
@@ -37,10 +38,13 @@ public class ScannerVerticle extends AbstractVerticle {
         parser = new HCIDumpParser(cmdArgs);
         log.infof("Begin start of scanner");
         // Start the scanner parser handler threads other than the native stack handler
+        //parserThread = new Thread(parser::run, "MsgPublisher");
+        //parserThread.start();
         parser.start();
         // Setup the native bluetooth stack integration, callbacks, and stack thread
         HCIDump.setRawEventCallback(parser::beaconEvent);
         HCIDump.initScanner(cmdArgs.hciDev);
+        log.infof("Initialized native scanner");
         // Schedule a thread to wait for a shutdown marker
         final Vertx vertx = getVertx();
         Handler<Future<Vertx>> shutdownMonitor = (future) -> {
