@@ -18,9 +18,6 @@ public class ScannerMain {
     private static Logger log = Logger.getLogger(ScannerMain.class);
 
     public static void main(String[] args) {
-        System.loadLibrary("scannerJni");
-        log.info("Loaded native scannerJni library");
-
         VertxOptions options = new VertxOptions();
         options.setClustered(false);
         options.setEventLoopPoolSize(5);
@@ -28,7 +25,11 @@ public class ScannerMain {
         Context context = vertx.getOrCreateContext();
 
         ParseCommand cmdArgs = ParseCommand.parseArgs(args);
+        // Exit if help option was given. The help will be output by parseArgs.
+        if(cmdArgs.help)
+            System.exit(0);
         context.put(ParseCommand.class.getCanonicalName(), cmdArgs);
+
         // If scannerID is the string {IP}, replace it with the host IP address
         try {
             cmdArgs.replaceScannerID();
@@ -36,6 +37,9 @@ public class ScannerMain {
             log.warn("Failed to read host address info", e);
         }
         log.infof("Parsed command line args, %s", cmdArgs);
+
+        System.loadLibrary("scannerJni");
+        log.info("Loaded native scannerJni library");
 
         // Remove any existing stop marker file
         HCIDumpParser.removeStopMarker();
