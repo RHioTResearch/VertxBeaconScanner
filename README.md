@@ -5,6 +5,9 @@ A version of the BLE beacon scanner that uses the Vert.x framework
 First clone and build the native scanner integration. Its README.md documents the required package installations.
 https://github.com/RHioTResearch/BeaconScannerJNI
 
+Optionally, if you have an LCD display attached to the scanner and what to use it, clone and install the LCDDisplays project.
+https://github.com/RHioTResearch/LCDDisplays.git
+
 Next, clone and install the BaseBeaconScanner jars
 https://github.com/RHioTResearch/BaseBeaconScanner
 
@@ -70,8 +73,8 @@ The current command arguments are:
 			-beaconMapping
 				 Specify the source of the beacon id to user name mapping. The following
 				 formats are understood:
-					string of id1=user1,id2=user2,... mappingsfile:path to
-					java properties file with beaconid=userid mappings
+						string of id1=user1,id2=user2,... mappingsfile:path to
+									 java properties file with beaconid=userid mappings
 			-brokerURL
 				 Specify the brokerURL to connect to the msg broker with; default
 				 tcp://localhost:1883
@@ -90,7 +93,12 @@ The current command arguments are:
 				 Specify the UUID of the beacon used to signal the scanner heartbeat event
 				 Default: <empty string>
 			-help, -h, -?
+				 
 				 Default: false
+			-lcdType
+				 Specify the LcdDisplayType enum for the LCD implementation to use;
+				 default PCD8544
+				 Default: PCD8544
 			-noBrokerReconnect
 				 Don't try to reconnect to the broker on failure, just exit
 				 Default: false
