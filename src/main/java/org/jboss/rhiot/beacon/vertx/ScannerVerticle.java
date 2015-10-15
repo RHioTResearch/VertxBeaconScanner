@@ -36,7 +36,7 @@ public class ScannerVerticle extends AbstractVerticle {
     @Override
     public void start() throws Exception {
         parser = new HCIDumpParser(cmdArgs);
-        log.infof("Begin start of scanner");
+        log.infof("Begin start of scanner, scannerID=%s", cmdArgs.scannerID);
         // Start the scanner parser handler threads other than the native stack handler
         //parserThread = new Thread(parser::run, "MsgPublisher");
         //parserThread.start();
